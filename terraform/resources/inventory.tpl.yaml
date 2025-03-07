@@ -1,20 +1,25 @@
 [automationgateway]
 automationgateway-0.example.com
+automationgateway-1.example.com
 
 [automationcontroller]
 automationcontroller-0.example.com
+automationcontroller-1.example.com
 
 [automationcontroller:vars]
 peers=execution_nodes
 
 [execution_nodes]
 executionnode-0.example.com
+executionnode-1.example.com
 
 [automationhub]
 automationhub-0.example.com
+automationhub-1.example.com
 
 [automationedacontroller]
 automationedacontroller-0.example.com
+automationedacontroller-1.example.com
 
 [database]
 database-0.example.com

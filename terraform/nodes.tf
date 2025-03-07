@@ -87,6 +87,35 @@ resource "ansible_host" "automationgateway-0" {
   }
 }
 
+resource "aws_instance" "automationgateway-1" {
+  ami                    = "ami-018e625a2beb97a6a"
+  instance_type          = "m5.xlarge"
+  subnet_id              = aws_subnet.aap25-demo-subnet.id
+  key_name               = aws_key_pair.aap25-demo-login-key.key_name
+  vpc_security_group_ids = [aws_security_group.aap25-demo-main.id]
+  user_data              = file("resources/user-data-node-RHEL9.sh")
+  associate_public_ip_address = "true"
+  root_block_device {
+    volume_size = 60
+  }
+  tags = {
+    Name = "${ local.cluster_name }-automationgateway-1"
+  }
+}
+
+resource "ansible_host" "automationgateway-1" {
+  name   = aws_instance.automationgateway-1.public_dns
+  groups = ["automationgateway"]
+  variables = {
+    ansible_user                 = "ec2-user",
+    ansible_ssh_private_key_file = "/Users/amasolov/.ssh/id_rsa",
+    ansible_ssh_extra_args       = " -o StrictHostKeyChecking=no ",
+    cluster_hostname             = "automationgateway-1.${ local.cluster_domain }",
+    cluster_private_ip           = aws_instance.automationgateway-1.private_ip,
+    cluster_public_ip            = aws_instance.automationgateway-1.public_ip,
+  }
+}
+
 resource "aws_instance" "automationcontroller-0" {
   ami                    = "ami-018e625a2beb97a6a"
   instance_type          = "m5.xlarge"
@@ -113,6 +142,35 @@ resource "ansible_host" "automationcontroller-0" {
     cluster_hostname             = "automationcontroller-0.${ local.cluster_domain }",
     cluster_private_ip           = aws_instance.automationcontroller-0.private_ip,
     cluster_public_ip            = aws_instance.automationcontroller-0.public_ip,
+  }
+}
+
+resource "aws_instance" "automationcontroller-1" {
+  ami                    = "ami-018e625a2beb97a6a"
+  instance_type          = "m5.xlarge"
+  subnet_id              = aws_subnet.aap25-demo-subnet.id
+  key_name               = aws_key_pair.aap25-demo-login-key.key_name
+  vpc_security_group_ids = [aws_security_group.aap25-demo-main.id]
+  user_data              = file("resources/user-data-node-RHEL9.sh")
+  associate_public_ip_address = "true"
+  root_block_device {
+    volume_size = 60
+  }
+  tags = {
+    Name = "${ local.cluster_name }-automationcontroller-1"
+  }
+}
+
+resource "ansible_host" "automationcontroller-1" {
+  name   = aws_instance.automationcontroller-1.public_dns
+  groups = ["automationcontroller"]
+  variables = {
+    ansible_user                 = "ec2-user",
+    ansible_ssh_private_key_file = "/Users/amasolov/.ssh/id_rsa",
+    ansible_ssh_extra_args       = " -o StrictHostKeyChecking=no ",
+    cluster_hostname             = "automationcontroller-1.${ local.cluster_domain }",
+    cluster_private_ip           = aws_instance.automationcontroller-1.private_ip,
+    cluster_public_ip            = aws_instance.automationcontroller-1.public_ip,
   }
 }
 
@@ -145,6 +203,35 @@ resource "ansible_host" "automationhub-0" {
   }
 }
 
+resource "aws_instance" "automationhub-1" {
+  ami                    = "ami-018e625a2beb97a6a"
+  instance_type          = "m5.xlarge"
+  subnet_id              = aws_subnet.aap25-demo-subnet.id
+  key_name               = aws_key_pair.aap25-demo-login-key.key_name
+  vpc_security_group_ids = [aws_security_group.aap25-demo-main.id]
+  user_data              = file("resources/user-data-node-RHEL9.sh")
+  associate_public_ip_address = "true"
+  root_block_device {
+    volume_size = 60
+  }
+  tags = {
+    Name = "${ local.cluster_name }-automationhub-1"
+  }
+}
+
+resource "ansible_host" "automationhub-1" {
+  name   = aws_instance.automationhub-1.public_dns
+  groups = ["automationhub"]
+  variables = {
+    ansible_user                 = "ec2-user",
+    ansible_ssh_private_key_file = "/Users/amasolov/.ssh/id_rsa",
+    ansible_ssh_extra_args       = " -o StrictHostKeyChecking=no ",
+    cluster_hostname             = "automationhub-1.${ local.cluster_domain }",
+    cluster_private_ip           = aws_instance.automationhub-1.private_ip,
+    cluster_public_ip            = aws_instance.automationhub-1.public_ip,
+  }
+}
+
 resource "aws_instance" "automationedacontroller-0" {
   ami                    = "ami-018e625a2beb97a6a"
   instance_type          = "m5.xlarge"
@@ -174,6 +261,35 @@ resource "ansible_host" "automationedacontroller-0" {
   }
 }
 
+resource "aws_instance" "automationedacontroller-1" {
+  ami                    = "ami-018e625a2beb97a6a"
+  instance_type          = "m5.xlarge"
+  subnet_id              = aws_subnet.aap25-demo-subnet.id
+  key_name               = aws_key_pair.aap25-demo-login-key.key_name
+  vpc_security_group_ids = [aws_security_group.aap25-demo-main.id]
+  user_data              = file("resources/user-data-node-RHEL9.sh")
+  associate_public_ip_address = "true"
+  root_block_device {
+    volume_size = 60
+  }
+  tags = {
+    Name = "${ local.cluster_name }-automationedacontroller-1"
+  }
+}
+
+resource "ansible_host" "automationedacontroller-1" {
+  name   = aws_instance.automationedacontroller-1.public_dns
+  groups = ["automationedacontroller"]
+  variables = {
+    ansible_user                 = "ec2-user",
+    ansible_ssh_private_key_file = "/Users/amasolov/.ssh/id_rsa",
+    ansible_ssh_extra_args       = " -o StrictHostKeyChecking=no ",
+    cluster_hostname             = "automationedacontroller-1.${ local.cluster_domain }",
+    cluster_private_ip           = aws_instance.automationedacontroller-1.private_ip,
+    cluster_public_ip            = aws_instance.automationedacontroller-1.public_ip,
+  }
+}
+
 resource "aws_instance" "executionnode-0" {
   ami                    = "ami-018e625a2beb97a6a"
   instance_type          = "m5.xlarge"
@@ -200,6 +316,35 @@ resource "ansible_host" "executionnode-0" {
     cluster_hostname             = "executionnode-0.${ local.cluster_domain }",
     cluster_private_ip           = aws_instance.executionnode-0.private_ip,
     cluster_public_ip            = aws_instance.executionnode-0.public_ip,
+  }
+}
+
+resource "aws_instance" "executionnode-1" {
+  ami                    = "ami-018e625a2beb97a6a"
+  instance_type          = "m5.xlarge"
+  subnet_id              = aws_subnet.aap25-demo-subnet.id
+  key_name               = aws_key_pair.aap25-demo-login-key.key_name
+  vpc_security_group_ids = [aws_security_group.aap25-demo-main.id]
+  user_data              = file("resources/user-data-node-RHEL9.sh")
+  associate_public_ip_address = "true"
+  root_block_device {
+    volume_size = 60
+  }
+  tags = {
+    Name = "${ local.cluster_name }-executionnode-1"
+  }
+}
+
+resource "ansible_host" "executionnode-1" {
+  name   = aws_instance.executionnode-1.public_dns
+  groups = ["execution_nodes"]
+  variables = {
+    ansible_user                 = "ec2-user",
+    ansible_ssh_private_key_file = "/Users/amasolov/.ssh/id_rsa",
+    ansible_ssh_extra_args       = " -o StrictHostKeyChecking=no ",
+    cluster_hostname             = "executionnode-1.${ local.cluster_domain }",
+    cluster_private_ip           = aws_instance.executionnode-1.private_ip,
+    cluster_public_ip            = aws_instance.executionnode-1.public_ip,
   }
 }
 
